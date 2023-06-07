@@ -28,9 +28,18 @@ async function run() {
 
 
     const classCollection=client.db('music_school').collection('musics');
-
+    const instructorCollection=client.db('music_school').collection('instructors');
+    
+    //load top classes
     app.get('/classes',async(req,res)=>{
         const result=await classCollection.find().toArray();
+        res.send(result)
+    })
+
+    //load top instructors data
+
+    app.get('/instructors',async(req,res)=>{
+        const result=await instructorCollection.find().toArray();
         res.send(result)
     })
 
