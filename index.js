@@ -29,6 +29,7 @@ async function run() {
 
     const classCollection=client.db('music_school').collection('musics');
     const instructorCollection=client.db('music_school').collection('instructors');
+    const seatCollection=client.db('music_school').collection('seats');
     
     //load top classes
     app.get('/classes',async(req,res)=>{
@@ -42,6 +43,28 @@ async function run() {
         const result=await instructorCollection.find().toArray();
         res.send(result)
     })
+
+    //enroll seat
+
+    // create seat api 
+    app.get('/seats',async(req,res)=>{
+      const email=req.query.email;
+      console.log(email)
+      if(!email){
+        res.send([])
+      }
+      const query={email:email}
+      const result=await seatCollection.find(query).toArray();
+      res.send(result)
+  })
+
+    app.post('/seats',async(req,res)=>{
+      const seatItem=req.body;
+      console.log(seatItem);
+      const result=await seatCollection.insertOne(seatItem)
+      res.send(result);
+    })
+
 
 
 
