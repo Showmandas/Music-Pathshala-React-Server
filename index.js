@@ -30,7 +30,18 @@ async function run() {
     const classCollection=client.db('music_school').collection('musics');
     const instructorCollection=client.db('music_school').collection('instructors');
     const seatCollection=client.db('music_school').collection('seats');
+    const usersCollection=client.db('music_school').collection('users');
     
+
+    // users related apis 
+    
+    app.post('/users',async(req,res)=>{
+      const user=req.body;
+      
+      const result=await usersCollection.insertOne(user)
+      res.send(result);
+    })
+
     //load top classes
     app.get('/classes',async(req,res)=>{
         const result=await classCollection.find().toArray();
