@@ -63,7 +63,7 @@ async function run() {
     });
 
     // users related apis
-    app.get("/users", async (req, res) => {
+    app.get("/users",verifyJwt, async (req, res) => {
       const result = await usersCollection.find().toArray();
       res.send(result);
     });
